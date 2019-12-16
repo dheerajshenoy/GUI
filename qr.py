@@ -71,8 +71,11 @@ class mainWindow(QtGui.QWidget):
 		self.show()
 
 	def getDir(self):
+		global fileDialog
+		fileDialog = ""
 		fileDialog = QtGui.QFileDialog.getExistingDirectory(self,"Select Directory")
 		chooseDirBtn.setText(fileDialog)
+		
 	
 	def getfgcolor(self):
 		global fg 
@@ -84,6 +87,7 @@ class mainWindow(QtGui.QWidget):
 		
 	def getbgcolor(self):
 		global bg 
+		bg = "#ffffff"
 		bg = QtGui.QColorDialog.getColor()
 		bgcolor_btn.setText(bg.name())
 		bgcolor_btn.setStyleSheet("background-color:" + bg.name())
@@ -105,11 +109,11 @@ class mainWindow(QtGui.QWidget):
 		x = QRCode(str(string))
 		print(str(fg.name()),str(bg.name()))
 		if(self.form == ".jpg"):
-			x.svg(fileName_box.text()+".jpg",module_color=str(fg.name()),background=str(bg.name()),scale=8)
+			x.svg(str(fileDialog) + "/" + fileName_box.text()+".jpg",module_color=str(fg.name()),background=str(bg.name()),scale=8)
 		elif(self.form == ".png"):
-			x.svg(fileName_box.text()+".png",module_color=str(fg.name()),background=str(bg.name()),scale=8)
+			x.svg(str(fileDialog) + "/" + fileName_box.text()+".png",module_color=str(fg.name()),background=str(bg.name()),scale=8)
 		else:
-			x.svg(fileName_box.text()+".svg",module_color=str(fg.name()),background=str(bg.name()),scale=8)
+			x.svg(str(fileDialog) + "/" + fileName_box.text()+".svg",module_color=str(fg.name()),background=str(bg.name()),scale=8)
 		
 		
 if __name__ == "__main__":
